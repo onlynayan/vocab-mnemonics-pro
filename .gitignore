@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Data Sources (Raw files)
+*.xlsx
+*.csv
+words_data.json
+
+# Tooling / IDE
+.vscode/
+.idea/
+.gemini/
+.agents/
+
+# Unused legacy files
+gui.py
+scrap.py
+check_excel.py
+convert_to_js.py
+
+# NOTE: words_data.js IS REQUIRED for the website to function on Netlify.
+# If you add words_data.js to this ignore list, your published site will be empty.
+# words_data.js

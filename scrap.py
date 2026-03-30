@@ -26,7 +26,7 @@ def getMnemonics(word, no_of_mnemonics):
 cd = ['\n ta', 'na']
 getMnemonics('abase', 3)
 print(type(md[0]))
-a = 'Tasfik'
+a = 'Nayan'
 b = md[1]
 c = md[2]
 print(md[0].replace('\n', ''))

@@ -1,32 +1,35 @@
-# Barron's 333 words and their mnemonics
-Fetched Barron's 333 words from pdf &amp; their mnemonics from mnemonicdictionary.com, marged them into CSV format
+# Vocab Mastery: High-Frequency Words & Mnemonics
 
-## Packages that you need to have to run this project
-  [or you can just simply download the excel (*.xlsx) sheet which has the all data you need]
-   1. tabula
-   2. tabulate
-   3. csv
-   4. tkinter
-   5. BeautifulSoup
-   6. requests
+A premium, high-performance web application designed for students and GRE aspirants to master 4,600+ high-frequency vocabulary words using Bengali meanings, audio pronunciations, and memory-boosting mnemonics.
 
+## ✨ Features
 
-## &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; PROJECT SCREEN SHOTS
-<p>
-<a href="url"><img src="https://user-images.githubusercontent.com/38793982/67941949-e42f1080-fc00-11e9-8dec-faaded79d84e.PNG" align="left" height="300" width="400" style="border:10px"></a> <a href="url"><img src="https://user-images.githubusercontent.com/38793982/67942013-0c1e7400-fc01-11e9-9e5e-c3c9f5f6fb38.PNG" align="left" height="300" width="400" vspace="50"></a><br/><br/>
- </p>
- 
-<p>
-<a href="url"><img src="https://user-images.githubusercontent.com/38793982/67943634-a16f3780-fc04-11e9-9966-9e76b59e6ae7.PNG" align="left" height="50" width="400" style="border:10px"></a> <a href="url"><img src="https://user-images.githubusercontent.com/38793982/67943634-a16f3780-fc04-11e9-9966-9e76b59e6ae7.PNG" align="left" height="50" width="400" vspace="50"></a><br/><br/>
- </p>
-<p>
-<a href="url"><img src="https://user-images.githubusercontent.com/38793982/67942101-49830180-fc01-11e9-9c07-0ffbb0b2c23a.PNG" align="left" height="300" width="400" vspace="20"></a> <a href="url"><img src="https://user-images.githubusercontent.com/38793982/67941745-88648780-fc00-11e9-914f-c8d7708a8d19.PNG" align="left" height="300" width="400" ></a><br/><br/>
- </p>
- 
- <p>
-<a href="url"><img src="https://user-images.githubusercontent.com/38793982/67943634-a16f3780-fc04-11e9-9966-9e76b59e6ae7.PNG" align="left" height="50" width="400" style="border:10px"></a> <a href="url"><img src="https://user-images.githubusercontent.com/38793982/67943634-a16f3780-fc04-11e9-9966-9e76b59e6ae7.PNG" align="left" height="50" width="400" vspace="50"></a><br/><br/>
- </p>
- 
- <p>
-<a href="url"><img src="https://user-images.githubusercontent.com/38793982/67941975-f90ba400-fc00-11e9-8018-bd8b48b2350b.PNG" align="left" height="300" width="400" vspace="20" ></a> <a href="url"><img src="https://user-images.githubusercontent.com/38793982/67942125-569ff080-fc01-11e9-8d4d-6068b14fdadd.PNG" align="left" height="300" width="400" ></a><br/><br/>
- </p>
+- **4,600+ Word Database:** Includes the complete Barron's 333 and 800 lists.
+- **Native Audio Pronunciation:** Click the speaker icon to hear the word using the built-in Web Speech API.
+- **Bengali Support:** Includes Bengali meanings and phonetic pronunciation spelling (`[অ্যাবেট্]`) fetched from english-bangla.com.
+- **Mnemonics Gallery:** Displays multiple mnemonics per word with a color-matched scrollbar.
+- **Personal Checklist:** Mark words as "Memorized" to save them to your local checklist.
+- **Deep Search:** Search by word, English meaning, or Bengali meaning instantly.
+- **Clean Design:** Modern dark-mode UI with smooth micro-animations.
+
+## 🚀 How to Run Locally
+
+Since this is a static project, you can simply open `index.html` in any modern browser. 
+
+Alternatively, use a local server:
+```bash
+python -m http.server 8100
+```
+Then visit `http://localhost:8100`
+
+## 🛠️ Data Generation
+If you wish to update or modify the word list:
+1. Update `Barrons333_words.xlsx` or `Barrons800_words.csv`.
+2. Run the scraper: `python generate_db.py`.
+3. Refresh the web page.
+
+## 👤 Credits
+Developed by **Nayan** ([@onlynayan](https://github.com/onlynayan))
+
+---
+*Built to make vocabulary learning effortless and visual.*
