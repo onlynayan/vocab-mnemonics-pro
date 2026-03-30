@@ -1,5 +1,7 @@
 # Vocab Mastery: High-Frequency Words & Mnemonics
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vocab--mastery.netlify.app-success?style=for-the-badge&logo=netlify)](https://vocab-mastery.netlify.app/)
+
 A premium, high-performance web application designed for students and GRE aspirants to master 4,600+ high-frequency vocabulary words using Bengali meanings, audio pronunciations, and memory-boosting mnemonics.
 
 ## ✨ Features
