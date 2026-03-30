@@ -169,8 +169,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         pageWords.forEach(wordObj => {
+            const flipContainer = document.createElement('div');
+            flipContainer.className = 'flip-container';
+
             const card = document.createElement('div');
             card.className = 'word-card';
+
+            // --- FRONT FACE ---
+            const cardContent = document.createElement('div');
+            cardContent.className = 'card-content';
 
             // Process mnemonics
             let mnemonicsHTML = '';
@@ -191,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Construct additional word data HTML
             let prncHTML = wordObj.prnc ? `<div class="word-prnc" style="color:var(--text-muted); font-style:italic; margin-bottom:0.2rem;">${wordObj.prnc}</div>` : '';
             let posText = wordObj.pos ? wordObj.pos.replace(/\//g, '').trim() : '';
             let posHTML = posText ? `<div class="word-pos" style="color:var(--tag-color); font-weight:600; font-size:0.85rem; margin-bottom:0.8rem;">${posText}</div>` : '';
@@ -202,12 +208,23 @@ document.addEventListener('DOMContentLoaded', () => {
               <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 0 0 1.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06ZM18.584 5.106a.75.75 0 0 1 1.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 1 1-1.06-1.06 8.25 8.25 0 0 0 0-11.668.75.75 0 0 1 0-1.06Z"/><path d="M15.932 7.757a.75.75 0 0 1 1.061 0 6 6 0 0 1 0 8.486.75.75 0 0 1-1.06-1.061 4.5 4.5 0 0 0 0-6.364.75.75 0 0 1 0-1.06Z"/>
             </svg>`;
 
-            const isMemorized = memorizedWords.includes(wordObj.word);
-            let memoBtnHTML = `<button class="memo-btn" data-word="${wordObj.word}" style="padding: 0.2rem 0.5rem; border-radius: 6px; border: 1px solid var(--accent); background: ${isMemorized ? 'var(--accent)' : 'transparent'}; color: ${isMemorized ? 'white' : 'var(--accent)'}; cursor:pointer; font-size: 0.75rem; font-weight: 600; margin-top:0.25rem;">
-                ${isMemorized ? '✓ Memorized' : '+'}
+            let flipBtnHTML = `
+            <button class="flip-btn" title="Flip to self-test" style="display:flex; align-items:center; justify-content:center; padding: 0.15rem 0.4rem; min-height: 30px; border-radius: 6px; border: 1.5px solid var(--tag-color); background: transparent; color: var(--tag-color); cursor:pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.color='var(--primary)'" onmouseout="this.style.borderColor='var(--tag-color)'; this.style.color='var(--tag-color)'">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" width="18" height="18">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
             </button>`;
 
-            card.innerHTML = `
+            const isMemorized = memorizedWords.includes(wordObj.word);
+            let memoBtnHTML = `
+                <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.25rem;">
+                    ${flipBtnHTML}
+                    <button class="memo-btn" data-word="${wordObj.word}" title="Mark as memorized" style="padding: 0.15rem 0.5rem; min-height: 30px; border-radius: 6px; border: 1.5px solid var(--accent); background: ${isMemorized ? 'var(--accent)' : 'transparent'}; color: ${isMemorized ? 'white' : 'var(--accent)'}; cursor:pointer; font-size: 0.7rem; font-weight: 700; transition: all 0.2s;">
+                        ${isMemorized ? '✓ Memorized' : '+'}
+                    </button>
+                </div>`;
+
+            cardContent.innerHTML = `
                 <div class="card-header" style="margin-bottom:0.5rem;">
                     <div style="display:flex; align-items:center; flex-wrap:wrap; gap: 0.25rem;">
                         <h2 class="word-title" style="margin-bottom:0;">${wordObj.word}</h2>
@@ -224,7 +241,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${banglaHTML}
                 ${mnemonicsHTML}
             `;
-            wordGrid.appendChild(card);
+
+            // --- BACK FACE ---
+            const cardBack = document.createElement('div');
+            cardBack.className = 'card-back-face';
+            cardBack.innerHTML = `
+                <div style="position: absolute; top: 1rem; right: 1rem;">
+                    ${flipBtnHTML}
+                </div>
+                <h2 style="font-size: 2.22rem; font-weight: 800; color: white; text-align:center; text-transform:capitalize; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">${wordObj.word}</h2>
+            `;
+
+            card.appendChild(cardContent);
+            card.appendChild(cardBack);
+            flipContainer.appendChild(card);
+
+            flipContainer.addEventListener('click', (e) => {
+                // Flip ONLY if flip-btn is clicked or if the card is flipped and you click the back face
+                const isFlipBtn = e.target.closest('.flip-btn');
+                const isBack = flipContainer.classList.contains('flipped');
+                
+                if (isFlipBtn || (isBack && !e.target.closest('.speaker-icon') && !e.target.closest('.memo-btn'))) {
+                    flipContainer.classList.toggle('flipped');
+                }
+            });
+
+            wordGrid.appendChild(flipContainer);
         });
 
         updatePaginationControls(filteredWords.length);
