@@ -118,15 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (currentFilter !== 'all' && wordObj.category !== currentFilter) {
                 return false;
             }
+
             // Search filter
             if (searchQuery) {
-                const searchStr = `${wordObj.word} ${wordObj.meaning} ${wordObj.bangla || ''}`.toLowerCase();
-                if (!searchStr.includes(searchQuery)) {
-                    return false;
-                }
+                const wordMatch = wordObj.word.toLowerCase().includes(searchQuery);
+                const meaningMatch = wordObj.meaning.toLowerCase().includes(searchQuery);
+                const banglaMatch = (wordObj.bangla || '').toLowerCase().includes(searchQuery);
+                
+                return wordMatch || meaningMatch || banglaMatch;
             }
             return true;
         });
+
+        // Smart Sorting for Search Results
+        if (searchQuery) {
+            filteredWords.sort((a, b) => {
+                const aWord = a.word.toLowerCase();
+                const bWord = b.word.toLowerCase();
+                const aStarts = aWord.startsWith(searchQuery);
+                const bStarts = bWord.startsWith(searchQuery);
+
+                if (aStarts && !bStarts) return -1;
+                if (!aStarts && bStarts) return 1;
+                
+                // If both start with it or both don't, keep alphabetical
+                return aWord.localeCompare(bWord);
+            });
+        } else {
+            // Default alphabetical sort when no search
+            filteredWords.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
+        }
 
         showingCount.textContent = filteredWords.length;
         resetChecklistBtn.style.display = (currentFilter === 'memorized' && memorizedWords.length > 0) ? 'block' : 'none';
