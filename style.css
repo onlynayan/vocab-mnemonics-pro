@@ -249,6 +249,21 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Used by the card markup in `script.js` */
+.card-header-word {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+.card-header-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .word-title {
     font-size: 1.8rem;
     font-weight: 700;
@@ -405,6 +420,46 @@ body {
     }
 }
 
+/* Footer Section */
+.footer-section {
+    margin-top: 4rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--card-border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+}
+
+.footer-section strong {
+    color: var(--text-main);
+}
+
+.footer-links {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.github-link {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.github-link:hover {
+    color: var(--accent);
+}
+
+/* ------------------------------------------
+   Mobile/Tablet (desktop styles untouched)
+------------------------------------------- */
+
+/* Tablet and below */
 @media (max-width: 768px) {
     .app-container {
         padding: 1rem;
@@ -412,16 +467,53 @@ body {
 
     .header {
         margin-bottom: 2rem;
+        gap: 1.25rem;
+    }
+
+    .logo h1 {
+        font-size: 1.75rem;
     }
 
     .controls-container {
         flex-direction: column;
         align-items: stretch;
+        gap: 1rem;
+        padding: 0.9rem;
     }
 
-    .filter-tabs {
-        justify-content: center;
+    .results-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
         flex-wrap: wrap;
+    }
+
+    .search-bar {
+        min-width: 0;
+    }
+
+    #searchInput {
+        font-size: 1rem;
+    }
+
+    /* Tabs become scrollable instead of wrapping awkwardly */
+    .filter-tabs {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        white-space: nowrap;
+        padding: 0.55rem 1rem;
+        font-size: 0.92rem;
     }
 
     .word-grid {
@@ -433,6 +525,152 @@ body {
     }
 
     .word-title {
-        font-size: 1.5rem;
+        font-size: 1.55rem;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+    }
+
+    .page-btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+}
+
+/* Phones (keep this LAST so it wins the cascade) */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Avoid any child forcing horizontal overflow */
+    .app-container,
+    .controls-container,
+    .word-grid,
+    .flip-container,
+    .word-card {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .app-container {
+        padding: 1rem;
+    }
+
+    /* Top block: prevent overlap and keep centered */
+    .controls-container {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        gap: 1rem;
+    }
+
+    .search-bar {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #searchInput {
+        width: 100%;
+    }
+
+    /* --- FIX 1: TABS IN TWO LINES --- */
+    .filter-tabs {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        /* Allows tabs to wrap to a second line */
+        gap: 8px;
+        /* Adds spacing between the tabs */
+        justify-content: center;
+        /* Centers the tabs nicely */
+    }
+
+    /* Optional: helps them distribute evenly on two lines */
+    .filter-tabs>* {
+        flex: 1 1 calc(50% - 10px);
+        /* Makes them act roughly like a 2x2 grid */
+        text-align: center;
+        white-space: nowrap;
+        /* Prevents text inside the tab from breaking */
+    }
+
+    /* -------------------------------- */
+
+    .results-info {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto 1.25rem;
+    }
+
+    /* Cards: equal left/right space, no cut off */
+    .word-grid {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto 3rem;
+    }
+
+    .word-card {
+        width: 100%;
+    }
+
+    /* Long text should wrap instead of pushing layout */
+    .word-title,
+    .word-meaning,
+    .word-bangla,
+    .mnemonic-item {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    /* --- FIX 2: PAGINATION ON ONE LINE --- */
+    .pagination-container {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto 1.5rem;
+        display: flex !important;
+        flex-direction: row !important;
+        /* Forces items into one line */
+        justify-content: center !important;
+        /* Centers them together */
+        align-items: center !important;
+        /* Aligns them vertically */
+        gap: 15px;
+        /* Adds space between Prev, Page Text, and Next */
+    }
+
+    /* Prevents the buttons/text from forcing themselves full width */
+    .pagination-container button,
+    .pagination-container .page-info {
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    /* -------------------------------------- */
+
+    .page-info {
+        text-align: center;
+    }
+
+    /* Footer centered */
+    .footer-section {
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+
+    /* Floating button can cause right overflow */
+    #scrollToTopBtn {
+        right: 1rem !important;
+        bottom: 1.25rem !important;
+        width: 44px !important;
+        height: 44px !important;
     }
 }

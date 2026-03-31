@@ -225,12 +225,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
 
             cardContent.innerHTML = `
-                <div class="card-header" style="margin-bottom:0.5rem;">
-                    <div style="display:flex; align-items:center; flex-wrap:wrap; gap: 0.25rem;">
+                <div class="card-header">
+                    <div class="card-header-word">
                         <h2 class="word-title" style="margin-bottom:0;">${wordObj.word}</h2>
                         ${speakerSVG}
                     </div>
-                    <div style="display:flex; flex-direction:column; align-items:flex-end;">
+                    <div class="card-header-controls">
                         <span class="word-category">${wordObj.category === '333' ? 'Barron\'s 333' : 'Barron\'s 800'}</span>
                         ${memoBtnHTML}
                     </div>
